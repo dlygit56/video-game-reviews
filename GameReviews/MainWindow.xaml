@@ -1,0 +1,52 @@
+<Window x:Class="GameReviews.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Игровые рецензии" Width="1100" Height="760" MinWidth="820" MinHeight="560"
+        WindowStartupLocation="CenterScreen" Style="{StaticResource WindowStyle}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+        <Border Grid.Row="0" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,0,0,1" Padding="20,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="🎮" Style="{StaticResource EmojiText}" FontSize="22" Margin="0,0,10,0"/>
+                    <TextBlock Text="Игровые рецензии" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="28,0,0,0" VerticalAlignment="Center">
+                    <ToggleButton x:Name="NavReviews" Content="Игровые рецензии" Style="{StaticResource NavButton}" Click="NavReviews_Click"/>
+                    <ToggleButton x:Name="NavLeaderboard" Content="Лидерборд" Style="{StaticResource NavButton}" Click="NavLeaderboard_Click"/>
+                    <ToggleButton x:Name="NavProfile" Content="Мой профиль" Style="{StaticResource NavButton}" Click="NavProfile_Click"/>
+                    <ToggleButton x:Name="NavAdmin" Content="Администрирование" Style="{StaticResource NavButton}" Click="NavAdmin_Click" Visibility="Collapsed"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="UserLabel" Style="{StaticResource Muted}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <Button x:Name="AuthButton" Content="Войти" Style="{StaticResource PrimaryButton}" Click="Auth_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Содержимое страницы -->
+        <ContentControl x:Name="PageHost" Grid.Row="1" Margin="28,22,28,10" IsTabStop="False"/>
+
+        <!-- Подвал -->
+        <Border Grid.Row="2" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource LineBrush}"
+                BorderThickness="0,1,0,0" Padding="20,8">
+            <TextBlock Style="{StaticResource Muted}" FontSize="12"
+                       Text="🔥 шедевр   👍 хорошо   🍺 на любителя   😐 так себе   👎 не советую"/>
+        </Border>
+    </Grid>
+</Window>

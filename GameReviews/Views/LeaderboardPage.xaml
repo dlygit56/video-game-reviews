@@ -1,0 +1,83 @@
+<UserControl x:Class="GameReviews.Views.LeaderboardPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Лидерборд" Style="{StaticResource H1}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Лучшие игры -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Лучшие игры" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                <ListBox x:Name="GamesList" Grid.Row="1" Style="{StaticResource PlainList}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource RowItem}">
+                            <EventSetter Event="PreviewMouseLeftButtonUp" Handler="Game_Click"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Rank}" Style="{StaticResource Muted}" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Game.Emoji}" Style="{StaticResource EmojiText}" FontSize="20"/>
+                                <TextBlock Grid.Column="2" Text="{Binding Game.Title}" FontWeight="SemiBold"
+                                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Grid.Column="3" Text="{Binding Game.RatingText}" FontWeight="Bold"
+                                           Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <!-- Критики -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Критики" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                <ListBox x:Name="CriticsList" Grid.Row="1" Style="{StaticResource PlainList}" IsHitTestVisible="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding Username}" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding ReviewsCount, StringFormat='рецензий: {0}'}" Style="{StaticResource Muted}" FontSize="12"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1" Text="{Binding Emoji}" Style="{StaticResource EmojiText}" FontSize="18" Margin="0,0,10,0"/>
+                                <TextBlock Grid.Column="2" Text="{Binding AvgText}" FontWeight="Bold"
+                                           Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

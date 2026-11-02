@@ -1,0 +1,78 @@
+<UserControl x:Class="GameReviews.Views.ReviewsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Игровые рецензии" Style="{StaticResource H1}"/>
+
+        <!-- Жанры -->
+        <Border Grid.Row="1" Style="{StaticResource CardBorder}" Margin="0,0,0,12">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Жанры" FontWeight="SemiBold" Margin="0,0,12,0"/>
+                    <TextBlock x:Name="NoGenreText" Text="Не выбран ни один жанр" Style="{StaticResource Muted}"/>
+                </StackPanel>
+                <ItemsControl x:Name="GenresList">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton Content="{Binding Name}" Tag="{Binding Id}"
+                                          Style="{StaticResource ChipStyle}" Click="Genre_Click"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+
+        <!-- Поиск -->
+        <Grid Grid.Row="2" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="SearchBox" Grid.Column="0" TextChanged="SearchBox_TextChanged"/>
+            <TextBlock x:Name="CountText" Grid.Column="1" Style="{StaticResource Muted}"
+                       VerticalAlignment="Center" Margin="14,0,0,0"/>
+            <TextBlock Grid.Column="0" Text="Поиск по названию игры…" Style="{StaticResource Muted}"
+                       IsHitTestVisible="False" VerticalAlignment="Center" Margin="12,0,0,0"
+                       x:Name="SearchHint"/>
+        </Grid>
+
+        <!-- Список игр -->
+        <ListBox x:Name="GamesList" Grid.Row="3" Style="{StaticResource PlainList}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem" BasedOn="{StaticResource RowItem}">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="Game_Click"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="46"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Emoji}" Style="{StaticResource EmojiText}" FontSize="22"/>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Text="{Binding Subtitle}" Style="{StaticResource Muted}" FontSize="12" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="2" Text="{Binding RatingText}" FontSize="16" FontWeight="Bold"
+                                   Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

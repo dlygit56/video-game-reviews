@@ -1,0 +1,44 @@
+<UserControl x:Class="GameReviews.Views.AdminPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Администрирование" Style="{StaticResource H1}"/>
+        <TextBlock Grid.Row="1" Style="{StaticResource Muted}" Margin="0,0,0,12" TextWrapping="Wrap"
+                   Text="Смена ролей пользователей. Скрывать и удалять рецензии можно на странице игры."/>
+
+        <ListBox x:Name="UsersList" Grid.Row="2" Style="{StaticResource PlainList}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem" BasedOn="{StaticResource RowItem}">
+                    <Setter Property="Cursor" Value="Arrow"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Username}" FontWeight="SemiBold"/>
+                            <TextBlock Text="{Binding Email}" Style="{StaticResource Muted}" FontSize="12"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="{Binding RoleName}" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <Button Content="Пользователь" Tag="1" Margin="0,0,6,0" Click="Role_Click"/>
+                            <Button Content="Критик" Tag="2" Margin="0,0,6,0" Click="Role_Click"/>
+                            <Button Content="Админ" Tag="3" Click="Role_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>
